@@ -390,3 +390,58 @@ for i=1:column
 end
 X=[X;C];
 row=size(X,1);
+%% C-D segment Absolute Value of Each 1 Power Value Difference Sum 373 %%
+C=zeros(1,column);
+for i=1:column
+    num=0;
+    for j=X(321,i):X(322,i)-1
+        num=num+abs(X(j,i)-X(j+1,i));
+    end
+    C(1,i)=num;
+end
+X=[X;C];
+row=size(X,1);
+%% C-D segment Absolute Value of Each 2 Power Value Difference Sum 374 %%
+C=zeros(1,column);
+for i=1:column
+    num=0;
+    for j=X(321,i):X(322,i)-2
+        num=num+abs(X(j,i)-X(j+2,i));
+    end
+    C(1,i)=num;
+end
+X=[X;C];
+row=size(X,1);
+%% C-D segment Absolute Value of Each 3 Power Value Difference Sum 375 %%
+C=zeros(1,column);
+for i=1:column
+    num=0;
+    for j=X(321,i):X(322,i)-3
+        num=num+abs(X(j,i)-X(j+3,i));
+    end
+    C(1,i)=num;
+end
+X=[X;C];
+row=size(X,1);
+%% C-D segment Absolute Value of Each 4 Power Value Difference Sum 376 %%
+C=zeros(1,column);
+for i=1:column
+    num=0;
+    for j=X(321,i):X(322,i)-4
+        num=num+abs(X(j,i)-X(j+4,i));
+    end
+    C(1,i)=num;
+end
+X=[X;C];
+row=size(X,1);
+%% C-D segment Absolute Value of Each 5 Power Value Difference Sum 377 %%
+C=zeros(1,column);
+for i=1:column
+    num=0;
+    for j=X(321,i):X(322,i)-5
+        num=num+abs(X(j,i)-X(j+5,i));
+    end
+    C(1,i)=num;
+end
+X=[X;C];
+row=size(X,1);
