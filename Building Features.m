@@ -8,7 +8,7 @@ end
 %% initial %%
 clear;
 clc;
-load('cgdData-Completely-fixed.mat');%attention?Matrix data are column vector
+load('Building Features.mat');%attention?Matrix data are column vector
 row=size(X,1);%Indicator
 column=size(X,2);%number of vector(experiment vector in different situation)
 row_r=280;%Original Data
