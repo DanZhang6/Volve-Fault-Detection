@@ -4,7 +4,6 @@ plot(X(1:280,i))
 title(i);
 pause;
 end
-
 %% initial %%
 clear;
 clc;
@@ -445,3 +444,17 @@ for i=1:column
 end
 X=[X;C];
 row=size(X,1);
+
+%% Hist %%
+his=zeros(377,1);
+for i=1:column
+    if i==1
+        if (Y(1,i)==1)||(Y(1,i)==0)
+            his(:,1)=X(:,i);
+        end
+    else
+        if (Y(1,i)==1)||(Y(1,i)==0)
+            his=[his,X(:,i)];
+        end
+    end
+end
