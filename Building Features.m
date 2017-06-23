@@ -113,7 +113,7 @@ C=C./X(282,:);
 D=X(286,:).^4;
 X(row+1,:)=C./D;
 row=size(X,1);
-%% Histogram 297-317 %%247-267
+%% Histogram 297-317 %%247-267 !!Not Included!!
 C=zeros(21,column);
 for i=1:row_r
     for j=1:column
@@ -360,7 +360,7 @@ C=zeros(1,column);
 C=abs(X(337,:)-Av_E_A);
 X(row+1,:)=C;
 row=size(X,1);
-%% 240/15 average 340-354 %%
+%% 240/15 average 340-354 %% 353,354!!Not Included!!
 C=zeros(15,column);
 for i=1:15
     C(i,:)=mean(X(((i*16)-15):(i*16),:));
@@ -448,11 +448,39 @@ row=size(X,1);
 %% Hist %%
 hi=zeros(377,1);
 is=zeros(377,1);
+j=1;
+k=1;
 for i=1:column
         if Y(1,i)==1%%open
             hi=[hi,X(:,i)];
+            indo(1,j)=i;
+            j=j+1;
         end
         if Y(1,i)==0%close
             is=[is,X(:,i)];
+            indc(1,k)=1;
+            k=k+1;
         end
+end
+%% Gaussian Check %%
+for i=281:377
+    if Included(i,1)==1
+        histogram(abs(X(i,Y(1,:)==1)).^Gaus_O(i,1),50)
+        title(i)
+        pause
+        histogram(abs(X(i,Y(1,:)==0)).^Gaus_C(i,1),50)
+        title(i)
+        pause
+    end
+end
+%  
+for i=1:377
+hii(i,:)=(hi(i,:).^Gaus_O(i,1)).*Included(i,1);
+isi(i,:)=(is(i,:).^Gaus_C(i,1)).*Included(i,1);
+end
+%
+for i=281:377
+histogram(abd(isi(i,:)),50)
+title(i)
+pause
 end
