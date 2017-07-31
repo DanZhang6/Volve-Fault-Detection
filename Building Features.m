@@ -478,9 +478,47 @@ for i=1:377
 hii(i,:)=(hi(i,:).^Gaus_O(i,1)).*Included(i,1);
 isi(i,:)=(is(i,:).^Gaus_C(i,1)).*Included(i,1);
 end
-%
+%isi
 for i=281:377
-histogram(abd(isi(i,:)),50)
+histogram(abs(isi(i,:)),50)
 title(i)
 pause
+end
+%
+for i=281:377
+histogram(abs(hii(i,:)),50)
+title(i)
+pause
+end
+%strange data check
+for i=1:324
+    if hii(332,i)>1
+        ans=i
+    end
+end
+%
+faultcheck_hii=zeros(m,1);
+[m,n] = size(hii);
+fault_hii=zeros(1,n);
+%
+j=322
+for i=1:324
+    if hii(j,i)>faultcheck_hii(j,1)
+        fault_hii(1,i)=fault_hii(1,i)+1;
+    end
+end
+
+%% ????????????????????
+j=0;
+for i=1:697
+    if Y(1,i)>1
+        j=j+1;
+    end
+end
+%Training set: 386
+%Cv set: 129 18
+%Test set: 128 17
+%% ????? Training cv test set
+for i=1:697
+    
 end
