@@ -508,7 +508,7 @@ for i=1:324
     end
 end
 
-%% ????????????????????
+%% count different type of data
 j=0;
 for i=1:697
     if Y(1,i)>1
@@ -518,7 +518,55 @@ end
 %Training set: 386
 %Cv set: 129 18
 %Test set: 128 17
-%% ????? Training cv test set
-for i=1:697
-    
+%% Split Dataset into two part: Normal Abnormal
+% delete 1-19 column because capture speed too slow and data lenth too
+% short
+X_Normal=zeros(row,1);
+X_Abnormal=zeros(row,1);
+Y_Normal=0;
+Y_Abnormal=0;
+for i=1:column
+    if Y(1,i)<2
+        X_Normal=[X_Normal,X(:,i)];
+        Y_Normal=[Y_Normal,Y(1,i)];
+    else
+        X_Abnormal=[X_Abnormal,X(:,i)];
+        Y_Abnormal=[Y_Abnormal,Y(1,i)];
+    end
 end
+%% Generate Random Index
+%for normal data
+[i,j]=size(X_Normal);
+R=rand(1,j).*j;
+[R_sort,R_index] = sort(R);
+X_Normal_Rand=zeros(size(X_Normal));
+Y_Normal_Rand=zeros(size(Y_Normal));
+i=1;
+for i=1:j
+    X_Normal_Rand(:,i)=X_Normal(:,R_index(1,i));
+    Y_Normal_Rand(:,i)=Y_Normal(:,R_index(1,i));
+end
+%for abnormal data
+[i,j]=size(X_Abnormal);
+R=rand(1,j).*j;
+[R_sort,R_index] = sort(R);
+X_Abnormal_Rand=zeros(size(X_Abnormal));
+Y_Abnormal_Rand=zeros(size(Y_Abnormal));
+i=1;
+for i=1:j
+    X_Abnormal_Rand(:,i)=X_Abnormal(:,R_index(1,i));
+    Y_Abnormal_Rand(:,i)=Y_Abnormal(:,R_index(1,i));
+end
+%% Generate Training CV Test Set
+[i,j]=size(X_Normal_Rand);
+Training_Set_X=X_Normal_Rand(:,1:386);
+Training_Set_Y=Y_Normal_Rand(:,1:386);
+CV_Set_X=X_Normal_Rand(:,387:515);
+CV_Set_Y=Y_Normal_Rand(:,387:515);
+Test_Set_X=X_Normal_Rand(:,516:j);
+Test_Set_Y=Y_Normal_Rand(:,516:j);
+[i,j]=size(X_Abnormal_Rand);
+CV_Set_X=[CV_Set_X,X_Abnormal_Rand(:,1:18)];
+CV_Set_Y=[CV_Set_Y,Y_Abnormal_Rand(:,1:18)];
+Test_Set_X=[Test_Set_X,X_Abnormal_Rand(:,19:j)];
+Test_Set_Y=[Test_Set_Y,Y_Abnormal_Rand(:,19:j)];
