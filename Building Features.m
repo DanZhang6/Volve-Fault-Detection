@@ -570,3 +570,17 @@ CV_Set_X=[CV_Set_X,X_Abnormal_Rand(:,1:18)];
 CV_Set_Y=[CV_Set_Y,Y_Abnormal_Rand(:,1:18)];
 Test_Set_X=[Test_Set_X,X_Abnormal_Rand(:,19:j)];
 Test_Set_Y=[Test_Set_Y,Y_Abnormal_Rand(:,19:j)];
+%% From Datasets.dat: 
+%% 计算将Feature转化为高斯分布的参数
+%将Training CV test合并为一个变量
+%all_X or Y:所有数据的集合，先是训练集再是交叉验证集，最后是检测集
+all_X=[Training_Set_X,CV_Set_X,Test_Set_X];
+all_Y=[Training_Set_Y,CV_Set_Y,Test_Set_Y];
+X_normal=zeros(377,1);
+X_anomaly=zeros(377,1);
+X_normal=all_X(:,all_Y(1,:)==1);
+X_normal=[X_normal,all_X(:,all_Y(1,:)==0)];
+%% 生成新的曲线数据
+[i,j]=size(X_normal);
+New_Normal_X=buildingnews(X_normal,j,5,5,5,5,5,5,8,8,8,5,5,5);
+
